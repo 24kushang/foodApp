@@ -6,18 +6,18 @@ const userModel = require('../models/userModel')
 module.exports.getUser = async function getUsers(req, res) {
     //queries
     try {
-        let id  = req.params
+        let id  = req.id
         console.log(id);
-        let user = await userModel.findOne({id});
+        let user = await userModel.findById(id);
     // res.send("Hello world")
         res.json({
-            message: 'list of the users found',
+            message: 'Your User Profile is as follows',
             data: user
         })
     }
     catch(err){
         res.json({
-            message: err.message
+            error: err.message
         })
     }
 }
@@ -33,14 +33,16 @@ module.exports.updateUser = async function updateUser(req, res) {
         let id = req.params.id
         let user = await userModel.findById(id)
         let dataToBeUpdated = req.body
+        
         if (user){
-            const keys = []
+            let keys = []
             for (let key in dataToBeUpdated){
                 keys.push(key)
             }
             for (let i = 0; i < keys.length; i++){
                 user[keys[i]] = dataToBeUpdated[keys[i]]
             }
+            user.confirmPassword = user.password
             const updatedData = await user.save()
             res.json({
                 message: "Data updated successfully",
