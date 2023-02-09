@@ -3,26 +3,19 @@ const userRouter = express.Router()
 // const cookieParser = require('cookie-parser')
 const userModel = require('../models/userModel')
 const protectRoute = require('./authHelper')
-const {getUsers, postUser, updateUser, deleteUser, getUserById, getCookies, setCookies} = require('../controller/userController')
+const {getUser, updateUser, deleteUser, getAllUsers} = require('../controller/userController')
 
-userRouter
-    .route('/')
-    .get(protectRoute, getUsers)
-    .post(postUser)
+// user specific functions
+userRouter.route('/:id')
     .patch(updateUser)
     .delete(deleteUser)
 
-userRouter
-    .route('/set')
-    .get(setCookies)
+// app.use(protectRoute)
+userRouter.route('/userProfile')
+    .get(protectRoute, getUser)
 
-userRouter
-    .route('/get')
-    .get(getCookies)
-
-userRouter
-    .route('/:id')
-    .get(getUserById)
-
+// admin specific functions
+userRouter.route('/')
+    .get(getAllUsers)
 
 module.exports = userRouter
