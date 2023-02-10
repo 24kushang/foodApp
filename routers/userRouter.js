@@ -19,6 +19,14 @@ userRouter
     .route('/login')
     .post(login)
 
+userRouter
+    .route('/forgetpassword')
+    .post(forgetpassword)
+
+userRouter
+    .route('/resetpassword')
+    .post(resetpassword)
+
 // app.use(protectRoute)
 userRouter.route('/userProfile')
     .get(protectRoute, getUser)

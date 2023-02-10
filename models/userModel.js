@@ -44,7 +44,8 @@ const userSchema = mongoose.Schema({
     profileImage:{
         type:String,
         default:"img/users/default.jpg"
-    }
+    },
+    resetToken:String 
 })
 
 //? pre hooks 
