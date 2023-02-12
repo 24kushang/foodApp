@@ -121,7 +121,7 @@ module.exports.forgetpassword = async function forgetpassword (req, res){
     try{
         const user = await userModel.findOne({email:email})
         if (user){
-            // create resetToken is used to create a new token
+            // createResetToken is used to create a new token
             const resetToken = user.createResetToken();
 
             // http://abc.com/resetpassword/resetToken
@@ -166,4 +166,25 @@ module.exports.resetpassword = async function resetpassword (req, res){
         })
     }
 
+}
+
+module.exports.logout = function logout(req, res){
+    try{
+        res.cookie('login', " ", {maxAge: 10})
+        // Browser
+        const client = req.get('User-agent')
+        if(client.includes('Mozzila') == true){
+            return res.redirect('/login')
+        }
+
+        // Postman
+        res.json({
+            message: "Logout successful"
+        })
+    }
+    catch(err){
+        res.json({
+            error: err.message
+        })
+    }
 }

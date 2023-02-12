@@ -4,7 +4,7 @@ const userRouter = express.Router()
 const userModel = require('../models/userModel')
 // const protectRoute = require('./authHelper')
 const {getUser, updateUser, deleteUser, getAllUsers} = require('../controller/userController')
-const {signup, login, isAuthorized, protectRoute} = require('../controller/authController')
+const {signup, login, isAuthorized, protectRoute, forgetpassword, resetpassword, logout} = require('../controller/authController')
 
 // user specific functions
 userRouter.route('/:id')
@@ -26,6 +26,10 @@ userRouter
 userRouter
     .route('/resetpassword')
     .post(resetpassword)
+
+userRouter
+    .route('/logout')
+    .get(logout)
 
 // app.use(protectRoute)
 userRouter.route('/userProfile')
