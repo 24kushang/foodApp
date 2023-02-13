@@ -170,7 +170,7 @@ module.exports.resetpassword = async function resetpassword (req, res){
 
 module.exports.logout = function logout(req, res){
     try{
-        res.cookie('login', " ", {maxAge: 10})
+        res.cookie('login', " ", {maxAge: 3000})
         // Browser
         const client = req.get('User-agent')
         if(client.includes('Mozzila') == true){

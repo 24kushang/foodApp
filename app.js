@@ -16,3 +16,5 @@ const authRouter = require('./routers/authRouter')
 // base URL
 app.use("/user", userRouter)
 app.use("/", authRouter)
+
+const planModel = require('./models/planModel')
