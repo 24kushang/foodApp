@@ -103,3 +103,10 @@ module.exports.getAllUsers = async function getAllUsers(req, res) {
 //     res.json({ cookieData: req.cookies })
 //     // res.send("got the cookie")
 // }
+
+module.exports.updateProfileImage = function updateProfileImage(req, res){
+    console.log("hello world");
+    return res.json({
+        message: "File uploaded"
+    })
+}

@@ -1,13 +1,26 @@
 const express = require('express');
 const userModel = require('../models/userModel')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { sendMail } = require('../utility/nodemailer');
 const JWT_KEY = "l4j5jnaoi452hj"
 
 // signup function
+module.exports.signupForm = function signupForm(req, res){
+    try{
+        res.sendFile('C:\\Users\\kusha\\New folder (2)\\pepcoding\\foodApp\\html\\signup.html')
+    }
+    catch(err){
+        console.log(err.message)
+    }
+}
+
 module.exports.signup = async function signup(req, res) {
     try {
         let dataObj = req.body;
+        console.log(dataObj);
         let newUser = await userModel.create(dataObj)
+        console.log(newUser);
+        sendMail("signup", newUser)
 
         if (newUser) {
             console.log(newUser);
@@ -68,7 +81,7 @@ module.exports.login = async function Login(req, res) {
 
 module.exports.isAuthorized = function isAuthorized(roles) {
     return function (req, res, next) {
-        if (roles.include(req.roles) == true) {
+        if (roles.includes(req.role) == true) {
             next()
         }
         else {
@@ -85,7 +98,7 @@ module.exports.protectRoute = async function protectRoute(req, res, next) {
     try {
         let token
         if (req.cookies.login) {
-            console.log(req.cookies);
+            // console.log(req.cookies);
             token = req.cookies.login
             let payload = jwt.verify(req.cookies.login, JWT_KEY)
             if (payload) {
@@ -127,6 +140,11 @@ module.exports.forgetpassword = async function forgetpassword (req, res){
             // http://abc.com/resetpassword/resetToken
             let resetPasswordLink = `${req.protocol}://${req.get('host')}/resetpassword/${resetToken}`
             // send email to the user
+            let obj = {
+                resetPasswordLink: resetPasswordLink,
+                email: email
+            }
+            sendMail("resetpassword", obj)
             // nodemailer
         } else {
             return res.json({
@@ -170,7 +188,7 @@ module.exports.resetpassword = async function resetpassword (req, res){
 
 module.exports.logout = function logout(req, res){
     try{
-        res.cookie('login', " ", {maxAge: 3000})
+        res.cookie('login', " ", {maxAge: 1})
         // Browser
         const client = req.get('User-agent')
         if(client.includes('Mozzila') == true){

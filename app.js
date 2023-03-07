@@ -3,18 +3,29 @@ const app = express();
 const cookieParser = require('cookie-parser')
 const userModel = require('./models/userModel')
 
+const cors = require('cors')
+
+app.use(cors({
+    origin: 'https://localhost:3000'
+}))
+
 // middleware for json
 app.use(express.json())
 app.use(cookieParser())
 
-app.listen(3000)
+
 
 // mini app
 const userRouter = require('./routers/userRouter')
-const authRouter = require('./routers/authRouter')
+const reviewRouter = require('./routers/reviewRouter')
+const planRouter = require('./routers/planRouter')
 
 // base URL
 app.use("/user", userRouter)
-app.use("/", authRouter)
+app.use("/plans", planRouter)
+app.use("/reviews", reviewRouter)
 
-const planModel = require('./models/planModel')
+// const planModel = require('./models/planModel')
+app.listen(5000,(e)=>{
+    console.log(e)
+})

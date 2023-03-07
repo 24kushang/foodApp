@@ -39,21 +39,21 @@ const planSchema = new mongoose.Schema({
 
 const planModel = mongoose.model('planModel', planSchema);
 
-( async function createPlan(){
-    let plan = {
-        name: "Super food 101",
-        duration: 30,
-        price: 1000,
-        ratingAverage: 5,
-        discout: 20
-    }
-    // method 1
-    //   let data = await planModel.create(plan)
+// ( async function createPlan(){
+//     let plan = {
+//         name: "Super food 101",
+//         duration: 30,
+//         price: 1000,
+//         ratingAverage: 5,
+//         discout: 20
+//     }
+//     // method 1
+//     //   let data = await planModel.create(plan)
 
-    // method 2
-    const doc = new planModel (plan)
-    await doc.save()
-}) ();
+//     // method 2
+//     const doc = new planModel (plan)
+//     await doc.save()
+// }) ();
 
 
-module.exports.planModel = planModel
+module.exports = planModel

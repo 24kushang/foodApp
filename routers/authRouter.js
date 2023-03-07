@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const JWT_KEY = "l4j5jnaoi452hj"
 
 authRouter
-    .route('/auth/signup')
+    // .route('/auth/signup'/)
     .get(getSignup)
     .post(postSignup)
 

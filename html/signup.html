@@ -30,7 +30,18 @@
             let password = document.querySelector("input[type='password']").value
             let confirmPassword = document.querySelector("input[type='password']").value
 
-            let response = await axios.post('/auth/signup', {name, email, password, confirmPassword})
+//             axios.post('/user', {
+//     firstName: 'Fred',
+//     lastName: 'Flintstone'
+//   })
+//   .then(function (response) {
+//     console.log(response);
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   });
+    console.log(name);
+            let response = await axios.post('/user/signup', {name, email, password, confirmPassword})
             console.log("response", response);
         })
     </script>
